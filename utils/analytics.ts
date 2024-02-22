@@ -27,8 +27,6 @@ export class Analytics {
     }
 
     console.log("Tracking key: " + key);
-    const ping = await redis.ping();
-    console.log("Ping: " + ping);
     const res = await redis.hgetall<Record<string, string>>(key);
     console.log("Res: " + JSON.stringify(res));
 
@@ -71,6 +69,7 @@ export class Analytics {
     const res = await redis.hgetall<Record<string, string>>(
       `analytics::${namespace}::${date}`
     );
+    console.log("Got: : " + JSON.stringify(res));
     return {
       date,
       events: Object.entries(res ?? []).map(([key, value]) => ({
