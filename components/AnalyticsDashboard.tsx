@@ -87,7 +87,7 @@ const AnalyticsDashboard = ({
                   {countryCode}
                 </p>
                 <ReactCountryFlag
-                  className="text-3xl sm:text-5xl"
+                  className="text-5xl sm:text-3xl"
                   svg
                   countryCode={countryCode}
                 />
