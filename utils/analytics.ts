@@ -26,13 +26,8 @@ export class Analytics {
       key += `::${getDate()}`;
     }
 
-    console.log("Tracking key: " + key);
-    const res = await redis.hgetall<Record<string, string>>(key);
-    console.log("Res: " + JSON.stringify(res));
-
-    // db call to persist this event
-    const after = await redis.hincrby(key, JSON.stringify(event), 1);
-    console.log("After: " + after);
+    // db call to persist this event THIS LINE DOES NOT WORK
+    await redis.hincrby(key, JSON.stringify(event), 1);
 
     if (!opts?.persist) {
       await redis.expire(key, this.retention);
@@ -69,7 +64,7 @@ export class Analytics {
     const res = await redis.hgetall<Record<string, string>>(
       `analytics::${namespace}::${date}`
     );
-    console.log("Got: : " + JSON.stringify(res));
+
     return {
       date,
       events: Object.entries(res ?? []).map(([key, value]) => ({
