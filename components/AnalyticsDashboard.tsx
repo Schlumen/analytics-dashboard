@@ -10,6 +10,8 @@ interface AnalyticsDashboardProps {
   amtVisitorsToday: number;
   timeseriesPageviews: Awaited<ReturnType<typeof analytics.retrieveDays>>;
   topCountries: [string, number][];
+  cvdownloadsToday: number;
+  cvdownloadsThisWeek: number;
 }
 
 const Badge = ({ percentage }: { percentage: number }) => {
@@ -46,10 +48,12 @@ const AnalyticsDashboard = ({
   amtVisitorsToday,
   timeseriesPageviews,
   topCountries,
+  cvdownloadsToday,
+  cvdownloadsThisWeek,
 }: AnalyticsDashboardProps) => {
   return (
     <div className="flex flex-col gap-6">
-      <div className="grid w-full mx-auto grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid w-full mx-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         <Card className="w-full mx-auto max-w-xs">
           <p className="text-tremor-default text-dark-tremor-content">
             Avg. visitors per day
@@ -71,6 +75,22 @@ const AnalyticsDashboard = ({
             {amtVisitorsToday}
           </p>
         </Card>
+        <Card className="w-full mx-auto max-w-xs">
+          <p className="text-tremor-default text-dark-tremor-content">
+            CV downloads this week
+          </p>
+          <p className="text-3xl text-dark-tremor-content-strong font-semibold">
+            {cvdownloadsThisWeek}
+          </p>
+        </Card>
+        <Card className="w-full mx-auto max-w-xs">
+          <p className="text-tremor-default text-dark-tremor-content">
+            CV downloads today
+          </p>
+          <p className="text-3xl text-dark-tremor-content-strong font-semibold">
+            {cvdownloadsToday}
+          </p>
+        </Card>
       </div>
       <Card className="flex flex-col sm:grid grid-cols-4 gap-6">
         <h2 className="w-full text-dark-tremor-content-strong text-center sm:text-left font-semibold text-xl">
@@ -87,7 +107,7 @@ const AnalyticsDashboard = ({
                   {countryCode}
                 </p>
                 <ReactCountryFlag
-                  className="text-5xl sm:text-3xl"
+                  className="text-5xl sm:text-3xl rounded-md"
                   svg
                   countryCode={countryCode}
                 />

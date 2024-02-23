@@ -6,8 +6,18 @@ const Page = async () => {
   const TRACKING_DAYS = 7;
 
   const pageviews = await analytics.retrieveDays("pageview", TRACKING_DAYS);
+  const cvdownloads = await analytics.retrieveDays("cvdownload", TRACKING_DAYS);
 
   const totalPageviews = pageviews.reduce((acc, curr) => {
+    return (
+      acc +
+      curr.events.reduce((acc, curr) => {
+        return acc + Object.values(curr)[0]!;
+      }, 0)
+    );
+  }, 0);
+
+  const totalCVDownloads = cvdownloads.reduce((acc, curr) => {
     return (
       acc +
       curr.events.reduce((acc, curr) => {
@@ -19,6 +29,15 @@ const Page = async () => {
   const avgVisitorsperDay = (totalPageviews / TRACKING_DAYS).toFixed(1);
 
   const amtVisitorsToday = pageviews
+    .filter(ev => ev.date === getDate())
+    .reduce((acc, curr) => {
+      return (
+        acc +
+        curr.events.reduce((acc, curr) => acc + Object.values(curr)[0]!, 0)
+      );
+    }, 0);
+
+  const timeframeCVDownloads = cvdownloads
     .filter(ev => ev.date === getDate())
     .reduce((acc, curr) => {
       return (
@@ -66,6 +85,8 @@ const Page = async () => {
           amtVisitorsToday={amtVisitorsToday}
           timeseriesPageviews={pageviews}
           topCountries={topCountries}
+          cvdownloadsToday={timeframeCVDownloads}
+          cvdownloadsThisWeek={totalCVDownloads}
         />
       </div>
     </div>
