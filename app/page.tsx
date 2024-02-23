@@ -3,7 +3,7 @@ import { getDate } from "@/utils";
 import { analytics } from "@/utils/analytics";
 
 const Page = async () => {
-  const TRACKING_DAYS = 7;
+  const TRACKING_DAYS = 14;
 
   const pageviews = await analytics.retrieveDays("pageview", TRACKING_DAYS);
   const cvdownloads = await analytics.retrieveDays("cvdownload", TRACKING_DAYS);
@@ -75,7 +75,7 @@ const Page = async () => {
 
   const topCountries = [...topCountriesMap.entries()]
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
+    .slice(0, 6);
 
   return (
     <div className="min-h-screen w-full py-12 px-4 flex justify-center items-center">

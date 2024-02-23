@@ -54,7 +54,7 @@ const AnalyticsDashboard = ({
   return (
     <div className="flex flex-col gap-6">
       <div className="grid w-full mx-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        <Card className="w-full mx-auto max-w-xs">
+        <Card className="w-full mx-auto max-w-xs flex flex-col justify-between">
           <p className="text-tremor-default text-dark-tremor-content">
             Avg. visitors per day
           </p>
@@ -62,7 +62,7 @@ const AnalyticsDashboard = ({
             {avgVisitorsperDay}
           </p>
         </Card>
-        <Card className="w-full mx-auto max-w-xs">
+        <Card className="w-full mx-auto max-w-xs flex flex-col justify-between">
           <p className="flex items-center gap-2.5 text-tremor-default text-dark-tremor-content">
             Visitors today
             <Badge
@@ -75,17 +75,22 @@ const AnalyticsDashboard = ({
             {amtVisitorsToday}
           </p>
         </Card>
-        <Card className="w-full mx-auto max-w-xs">
+        <Card className="w-full mx-auto max-w-xs flex flex-col justify-between">
           <p className="text-tremor-default text-dark-tremor-content">
-            CV downloads this week
+            Total CV downloads
           </p>
           <p className="text-3xl text-dark-tremor-content-strong font-semibold">
             {cvdownloadsThisWeek}
           </p>
         </Card>
-        <Card className="w-full mx-auto max-w-xs">
-          <p className="text-tremor-default text-dark-tremor-content">
-            CV downloads today
+        <Card className="w-full mx-auto max-w-xs flex flex-col justify-between">
+          <p className="flex items-center gap-2.5 text-tremor-default text-dark-tremor-content">
+            Today CV downloads
+            <Badge
+              percentage={
+                (cvdownloadsToday / (cvdownloadsThisWeek / 14) - 1) * 100
+              }
+            />
           </p>
           <p className="text-3xl text-dark-tremor-content-strong font-semibold">
             {cvdownloadsToday}
@@ -94,7 +99,7 @@ const AnalyticsDashboard = ({
       </div>
       <Card className="flex flex-col sm:grid grid-cols-4 gap-6">
         <h2 className="w-full text-dark-tremor-content-strong text-center sm:text-left font-semibold text-xl">
-          This weeks top visitors:
+          Top visitors:
         </h2>
         <div className="col-span-3 flex items-center justify-between flex-wrap gap-8">
           {topCountries?.map(([countryCode, number]) => {
