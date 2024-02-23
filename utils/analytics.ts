@@ -26,7 +26,7 @@ export class Analytics {
       key += `::${getDate()}`;
     }
 
-    // db call to persist this event THIS LINE DOES NOT WORK
+    // db call to persist this event
     await redis.hincrby(key, JSON.stringify(event), 1);
 
     if (!opts?.persist) {
