@@ -11,7 +11,7 @@ type TrackOptions = {
 };
 
 export class Analytics {
-  private retention: number = 60 * 60 * 24 * 7;
+  private retention: number = 60 * 60 * 24 * 7 * 8;
 
   constructor(opts?: AnalyticsArgs) {
     if (opts?.retention) {
